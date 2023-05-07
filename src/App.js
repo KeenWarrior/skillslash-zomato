@@ -1,29 +1,24 @@
-import logo from "./logo.svg";
 import "./App.css";
 import MainRouter from "./MainRouter";
 import firebaseApp from "./util/firebase";
-import { createContext, useEffect, useState } from "react";
+import { useEffect } from "react";
 import { getAuth } from "firebase/auth";
-
-let UserContext = createContext();
+import { useDispatch } from "react-redux";
 
 function App() {
-  const [user, setUser] = useState(undefined);
+  let dispatch = useDispatch();
 
   useEffect(() => {
     getAuth(firebaseApp).onAuthStateChanged((user) => {
-      console.log(user);
-      setUser(user);
+      dispatch({ type: "SET_USER", payload: user });
     });
   }, [firebaseApp]);
 
   return (
     <div className="App">
-      <UserContext.Provider value={{ user, setUser }}>
-        <MainRouter />
-      </UserContext.Provider>
+      <MainRouter />
     </div>
   );
 }
 
-export { App, UserContext };
+export { App };

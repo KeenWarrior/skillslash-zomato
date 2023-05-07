@@ -1,19 +1,17 @@
 import { AppBar, Button, Toolbar, Typography } from "@mui/material";
-import { useContext } from "react";
-import { UserContext } from "./App";
 import { useNavigate } from "react-router-dom";
-import { getAuth } from "firebase/auth";
-import firebaseApp from "./util/firebase";
-
+import { useDispatch, useSelector } from "react-redux";
 export default function MainAppBar() {
-  const { user } = useContext(UserContext);
-
+  const user = useSelector((state) => state.user);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   return (
     <AppBar position="static">
       <Toolbar>
-        <Typography flexGrow={1} variant="h6">Zomato</Typography>
+        <Typography flexGrow={1} variant="h6">
+          Zomato
+        </Typography>
         {!user && (
           <Button
             onClick={() => {
@@ -27,10 +25,13 @@ export default function MainAppBar() {
 
         {user && (
           <>
-            <Typography variant="body1">{"Hello " + user.displayName}</Typography>
-            <Button  variant="contained"
+            <Typography variant="body1">
+              {"Hello " + user.displayName}
+            </Typography>
+            <Button
+              variant="contained"
               onClick={() => {
-                getAuth(firebaseApp).signOut();
+                dispatch({ type: "LOGOUT_USER" });
               }}
             >
               Logout

@@ -1,12 +1,11 @@
-import { useContext } from "react";
-import { UserContext } from "../App";
 import { Navigate } from "react-router-dom";
 import LoadingPage from "../pages/LoadingPage";
+import { useSelector } from "react-redux";
 
 export default function AuthGaurd({ children }) {
-  let { user } = useContext(UserContext);
+  const user = useSelector((state) => state.user);
 
-  if (user == undefined) {
+  if (user == "undefined") {
     return <LoadingPage />;
   } else if (user == null) {
     return <Navigate to={"/login"} />;
