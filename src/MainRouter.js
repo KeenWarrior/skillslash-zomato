@@ -4,6 +4,7 @@ import OrderPage from "./pages/OrderPage";
 import LoginPage from "./pages/LoginPage";
 import UserGaurd from "./gaurds/UserGaurd";
 import AuthGaurd from "./gaurds/AuthGaurd";
+import HotelPage from "./pages/HotelPage";
 
 const router = createBrowserRouter([
   {
@@ -41,6 +42,12 @@ const router = createBrowserRouter([
         Search
         <MainBottomNavigation />
       </div>
+    ),
+  },
+  {
+    path: "/hotel",
+    element: (
+      <HotelPage/>
     ),
   },
   {
